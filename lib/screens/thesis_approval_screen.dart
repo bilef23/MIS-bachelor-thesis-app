@@ -44,12 +44,7 @@ class _ThesisApprovalScreenState extends State<ThesisApprovalScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            AppHeader(
-              isLoggedIn: isLoggedIn,
-              userId: userId,
-              onLogin: handleLogin,
-              onLogout: handleLogout,
-            ),
+            AppHeader(),
             // This is the missing box
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

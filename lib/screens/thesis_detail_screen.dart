@@ -19,16 +19,7 @@ class ThesisDetailScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            AppHeader(
-              isLoggedIn: true, // or false
-              userId: '211097',
-              onLogin: () {
-                // Handle login logic
-              },
-              onLogout: () {
-                // Handle logout logic
-              },
-            ),
+            AppHeader(),
 
             // Back button below AppHeader
             Padding(

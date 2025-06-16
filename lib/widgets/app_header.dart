@@ -1,50 +1,74 @@
+import 'package:bachelor_thesis_app/screens/thesis_process_screen.dart';
 import 'package:flutter/material.dart';
+import '../services/authentication_service.dart';
+import '../screens/login_screen.dart';
 
-class AppHeader extends StatelessWidget {
-  final bool isLoggedIn;
-  final String? userId;
-  final VoidCallback onLogin;
-  final VoidCallback onLogout;
+class AppHeader extends StatefulWidget {
+  const AppHeader({super.key});
 
-  const AppHeader({
-    super.key,
-    required this.isLoggedIn,
-    this.userId,
-    required this.onLogin,
-    required this.onLogout,
-  });
+  @override
+  State<AppHeader> createState() => _AppHeaderState();
+}
+
+class _AppHeaderState extends State<AppHeader> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUser();
+  }
+
+  Future<void> _loadUser() async {
+    final user = await AuthService.getLoggedInUser();
+    setState(() {
+      username = user?.username;
+    });
+  }
+
+  Future<void> _handleLogout() async {
+    await AuthService.logout();
+    setState(() {
+      username = null;
+    });
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const ThesisProcessScreen()),
+    );
+  }
+
+  Future<void> _handleLogin() async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => const CasLoginScreen()),
+    );
+
+    if (result == true) {
+      await _loadUser(); // Reload user after successful login
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = username != null;
+
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
         border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.shade400,
-            width: 1,
-          ),
+          bottom: BorderSide(color: Colors.grey.shade400, width: 1),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          /// Make the logo shrink when user is logged in
           Container(
             width: isLoggedIn ? 190 : 280,
             height: 70,
-            child: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/images/logo.png', fit: BoxFit.cover),
           ),
-
-          /// Spacer
-          if(!isLoggedIn) const SizedBox(width: 10),
-
-          /// Right side: login or user info
           Flexible(
             flex: 3,
             child: Align(
@@ -56,7 +80,7 @@ class AppHeader extends StatelessWidget {
                 children: [
                   const Icon(Icons.person, color: Colors.grey, size: 20),
                   Text(
-                    userId ?? '',
+                    username ?? '',
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 14,
@@ -64,30 +88,16 @@ class AppHeader extends StatelessWidget {
                     ),
                   ),
                   TextButton.icon(
-                    onPressed: onLogout,
-                    icon: const Icon(Icons.logout, color: Colors.grey, size: 20),
-                    label: const Text(
-                      "Одјава",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                    onPressed: _handleLogout,
+                    icon: const Icon(Icons.logout, color: Colors.grey),
+                    label: const Text("Одјава"),
                   ),
                 ],
               )
                   : TextButton.icon(
-                onPressed: onLogin,
-                icon: const Icon(Icons.login, color: Colors.grey, size: 20),
-                label: const Text(
-                  "Најава",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                onPressed: _handleLogin,
+                icon: const Icon(Icons.login, color: Colors.grey),
+                label: const Text("Најава"),
               ),
             ),
           ),

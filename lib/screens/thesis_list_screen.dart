@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/thesis.dart';
+import '../models/user.dart';
 import '../services/thesis_list_service.dart';
+import '../services/authentication_service.dart';
 import '../widgets/app_header.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../screens/thesis_detail_screen.dart';
@@ -16,8 +18,40 @@ class ThesisListScreen extends StatefulWidget {
 class _ThesisListScreenState extends State<ThesisListScreen> {
   final ThesisListService thesisListService = ThesisListService();
   final Color primaryTextColor = const Color(0xFF1461B4);
-  bool isLoggedIn = true;
   int _currentIndex = 3;
+
+  bool isLoggedIn = false;
+  User? loggedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final user = await AuthService.getLoggedInUser();
+    setState(() {
+      isLoggedIn = user != null;
+      loggedInUser = user;
+    });
+  }
+
+  void _handleLogin() async {
+    try {
+      await AuthService.login("testuser", "123"); // <- replace with real input later
+      _checkLoginStatus();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid credentials")),
+      );
+    }
+  }
+
+  void _handleLogout() async {
+    await AuthService.logout();
+    _checkLoginStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +62,8 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            AppHeader(
-              isLoggedIn: isLoggedIn,
-              userId: '211097',
-              onLogin: () {
-                setState(() {
-                  isLoggedIn = false;
-                });
-              },
-              onLogout: () {
-                setState(() {
-                  isLoggedIn = false;
-                });
-              },
-            ),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0)
-            ),
-
-            // Expanded scrollable container
+            AppHeader(),
+            const SizedBox(height: 12),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16.0),

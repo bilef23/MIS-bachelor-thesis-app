@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/thesis_process_screen.dart';
-import 'screens/thesis_list_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

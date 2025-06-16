@@ -51,12 +51,7 @@ class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            AppHeader(
-              isLoggedIn: isLoggedIn,
-              userId: userId,
-              onLogin: handleLogin,
-              onLogout: handleLogout,
-            ),
+            AppHeader(),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

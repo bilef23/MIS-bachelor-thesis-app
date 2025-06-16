@@ -3,21 +3,18 @@ import '../models/thesis_step.dart';
 import '../widgets/app_header.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../utils/navigation_helper.dart';
+import '../services/authentication_service.dart'; // if needed
 
 class ThesisStepDetailScreen extends StatelessWidget {
   final ThesisStep step;
   final bool isLoggedIn;
   final String? userId;
-  final VoidCallback onLogin;
-  final VoidCallback onLogout;
 
   const ThesisStepDetailScreen({
     super.key,
     required this.step,
     required this.isLoggedIn,
-    required this.userId,
-    required this.onLogin,
-    required this.onLogout,
+    this.userId,
   });
 
   @override
@@ -27,12 +24,7 @@ class ThesisStepDetailScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            AppHeader(
-              isLoggedIn: isLoggedIn,
-              userId: userId,
-              onLogin: onLogin,
-              onLogout: onLogout,
-            ),
+            const AppHeader(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: GestureDetector(
@@ -78,9 +70,9 @@ class ThesisStepDetailScreen extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFFFAFAFA),
-                            borderRadius: BorderRadius.circular(12), // rounded edges
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          padding: const EdgeInsets.all(16.0), // some padding inside container
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -134,4 +126,3 @@ class ThesisStepDetailScreen extends StatelessWidget {
     );
   }
 }
-
