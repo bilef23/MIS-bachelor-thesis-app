@@ -128,7 +128,7 @@ class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
         currentIndex: _currentIndex,
         navBarColor: const Color(0xFF59A9FF),
         isLoggedIn: isLoggedIn,
-        onTap: (index) => NavigationHelper.navigateByIndex(context, index),
+        onTap: (index) => NavigationHelper.navigateByIndex(context, index, isLoggedIn),
       ),
     );
   }

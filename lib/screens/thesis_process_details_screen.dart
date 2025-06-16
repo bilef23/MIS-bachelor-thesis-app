@@ -121,7 +121,7 @@ class ThesisStepDetailScreen extends StatelessWidget {
         currentIndex: 0,
         navBarColor: const Color(0xFF59A9FF),
         isLoggedIn: isLoggedIn,
-        onTap: (index) => NavigationHelper.navigateByIndex(context, index),
+        onTap: (index) => NavigationHelper.navigateByIndex(context, index, isLoggedIn),
       ),
     );
   }

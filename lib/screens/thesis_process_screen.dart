@@ -160,7 +160,7 @@ class _ThesisProcessScreenState extends State<ThesisProcessScreen> {
           setState(() {
             _currentIndex = index;
           });
-          NavigationHelper.navigateByIndex(context, index);
+          NavigationHelper.navigateByIndex(context, index, isLoggedIn);
         },
       ),
     );
