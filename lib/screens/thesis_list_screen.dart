@@ -18,7 +18,7 @@ class ThesisListScreen extends StatefulWidget {
 class _ThesisListScreenState extends State<ThesisListScreen> {
   final ThesisListService thesisListService = ThesisListService();
   final Color primaryTextColor = const Color(0xFF1461B4);
-  int _currentIndex = 3;
+  final int _currentIndex = 3;
 
   bool isLoggedIn = false;
   User? loggedInUser;
@@ -37,22 +37,6 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
     });
   }
 
-  void _handleLogin() async {
-    try {
-      await AuthService.login("testuser", "123"); // <- replace with real input later
-      _checkLoginStatus();
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Invalid credentials")),
-      );
-    }
-  }
-
-  void _handleLogout() async {
-    await AuthService.logout();
-    _checkLoginStatus();
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Thesis> theses = thesisListService.getTheses();
@@ -66,8 +50,9 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
             const SizedBox(height: 12),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+                margin: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -91,13 +76,17 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ThesisDetailScreen(thesis: thesis),
+                              builder: (context) => ThesisDetailScreen(
+                                thesis: thesis,
+                                isLoggedIn: isLoggedIn,
+                              ),
                             ),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Please log in to view thesis details.'),
+                              content:
+                                  Text('Please log in to view thesis details.'),
                               duration: Duration(seconds: 2),
                             ),
                           );
@@ -129,9 +118,13 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            _buildInfoItem(Icons.school, "${thesis.studentIndex} – ${thesis.studentName}", primaryTextColor),
+                            _buildInfoItem(
+                                Icons.school,
+                                "${thesis.studentIndex} – ${thesis.studentName}",
+                                primaryTextColor),
                             const SizedBox(height: 4),
-                            _buildInfoItem(Icons.person, thesis.professorName, Colors.black54),
+                            _buildInfoItem(Icons.person, thesis.professorName,
+                                Colors.black54),
                           ],
                         ),
                       ),
@@ -147,7 +140,8 @@ class _ThesisListScreenState extends State<ThesisListScreen> {
         currentIndex: isLoggedIn ? _currentIndex : 1,
         navBarColor: const Color(0xFF59A9FF),
         isLoggedIn: isLoggedIn,
-        onTap: (index) => NavigationHelper.navigateByIndex(context, index, isLoggedIn),
+        onTap: (index) =>
+            NavigationHelper.navigateByIndex(context, index, isLoggedIn),
       ),
     );
   }

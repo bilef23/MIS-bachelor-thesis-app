@@ -13,7 +13,7 @@ class ThesisProcedureScreen extends StatefulWidget {
 class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
   final Color primaryTextColor = const Color(0xFF686868);
 
-  int _currentIndex = 2; // Notice: assuming this is screen index 2 (Procedura za diplomksa)
+  final int _currentIndex = 2; // Notice: assuming this is screen index 2 (Procedura za diplomksa)
   bool isLoggedIn = true;
   String? userId = "211097";
 

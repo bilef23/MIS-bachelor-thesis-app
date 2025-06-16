@@ -8,7 +8,7 @@ class Thesis {
   final String? date;
   final String? approvalStatus;
   final String? description;
-  final String? fileUrl;
+  final String fileUrl;
 
   Thesis({
     required this.title,
@@ -20,6 +20,6 @@ class Thesis {
     this.date,
     this.approvalStatus,
     this.description,
-    this.fileUrl,
-  });
+    String? fileUrl,
+  }) : fileUrl = fileUrl ?? '$studentIndex.pdf';
 }

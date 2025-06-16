@@ -1,3 +1,5 @@
+import 'package:bachelor_thesis_app/services/thesis_download_service.dart';
+import 'package:bachelor_thesis_app/utils/navigation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/thesis.dart';
@@ -7,8 +9,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ThesisDetailScreen extends StatelessWidget {
   final Thesis thesis;
+  final bool isLoggedIn;
 
-  const ThesisDetailScreen({super.key, required this.thesis});
+  const ThesisDetailScreen({
+    super.key,
+    required this.thesis,
+    required this.isLoggedIn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,8 @@ class ThesisDetailScreen extends StatelessWidget {
 
             // Back button below AppHeader
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Row(
@@ -70,7 +78,6 @@ class ThesisDetailScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-
                       Container(
                         decoration: BoxDecoration(
                           color: const Color(0xFFF5F5F5),
@@ -80,52 +87,61 @@ class ThesisDetailScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _infoRow(Icons.school, "${thesis.studentIndex} – ${thesis.studentName}"),
+                            _infoRow(Icons.school,
+                                "${thesis.studentIndex} – ${thesis.studentName}"),
                             _infoRow(Icons.person, thesis.professorName),
-                            if (thesis.secondProfessorName != null && thesis.secondProfessorName!.isNotEmpty)
-                              _infoRow(Icons.person_outline, thesis.secondProfessorName!),
-                            if (thesis.commissionMember != null && thesis.commissionMember!.isNotEmpty)
+                            if (thesis.secondProfessorName != null &&
+                                thesis.secondProfessorName!.isNotEmpty)
+                              _infoRow(Icons.person_outline,
+                                  thesis.secondProfessorName!),
+                            if (thesis.commissionMember != null &&
+                                thesis.commissionMember!.isNotEmpty)
                               _infoRow(Icons.groups, thesis.commissionMember!),
                             if (thesis.date != null && thesis.date!.isNotEmpty)
-                              _infoRow(Icons.calendar_today, _formatDate(thesis.date!)),
-                            if (thesis.approvalStatus != null && thesis.approvalStatus!.isNotEmpty)
-                              _infoRow(Icons.check_circle_outline, thesis.approvalStatus!),
-                            if (thesis.description != null && thesis.description!.isNotEmpty)
+                              _infoRow(Icons.calendar_today,
+                                  _formatDate(thesis.date!)),
+                            if (thesis.approvalStatus != null &&
+                                thesis.approvalStatus!.isNotEmpty)
+                              _infoRow(Icons.check_circle_outline,
+                                  thesis.approvalStatus!),
+                            if (thesis.description != null &&
+                                thesis.description!.isNotEmpty)
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 10),
-                                  _infoRow(Icons.description, thesis.description!),
+                                  _infoRow(
+                                      Icons.description, thesis.description!),
                                 ],
                               ),
                           ],
                         ),
                       ),
-
                       const SizedBox(height: 20),
-
                       if (thesis.fileUrl != null && thesis.fileUrl!.isNotEmpty)
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: () async {
-                              final uri = Uri.parse(thesis.fileUrl!);
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(uri);
-                              } else {
+                              try {
+                                await ThesisDownloadService.downloadAndOpenPdf(
+                                    thesis.fileUrl!);
+                              } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Не може да се отвори датотеката.')),
+                                  const SnackBar(
+                                      content: Text(
+                                          'Не може да се отвори датотеката.')),
                                 );
                               }
                             },
-                            icon: const Icon(Icons.download, color: Colors.black),
+                            icon:
+                                const Icon(Icons.download, color: Colors.black),
                             label: const Text(
                               "Преземи датотека",
                               style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16
-                              ),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: primaryColor,
@@ -145,13 +161,12 @@ class ThesisDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: 3,
         navBarColor: const Color(0xFF59A9FF),
         isLoggedIn: true,
         onTap: (index) {
-          // Handle navigation if needed
+          NavigationHelper.navigateByIndex(context, index, isLoggedIn);
         },
       ),
     );

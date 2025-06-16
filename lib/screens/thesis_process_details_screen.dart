@@ -68,6 +68,7 @@ class ThesisStepDetailScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         Container(
+                          width: double.infinity,
                           decoration: BoxDecoration(
                             color: const Color(0xFFFAFAFA),
                             borderRadius: BorderRadius.circular(12),

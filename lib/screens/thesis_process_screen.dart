@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/thesis_service.dart';
+import '../services/thesis_steps_service.dart';
 import '../services/authentication_service.dart';
 import '../widgets/app_header.dart';
 import '../widgets/bottom_nav_bar.dart';
@@ -14,7 +14,7 @@ class ThesisProcessScreen extends StatefulWidget {
 }
 
 class _ThesisProcessScreenState extends State<ThesisProcessScreen> {
-  final ThesisService thesisService = ThesisService();
+  final ThesisStepsService thesisService = ThesisStepsService();
   final Color primaryTextColor = const Color(0xFF1461B4);
   int _currentIndex = 0;
 
@@ -48,8 +48,9 @@ class _ThesisProcessScreenState extends State<ThesisProcessScreen> {
             const SizedBox(height: 12),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+                margin: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -92,21 +93,23 @@ class _ThesisProcessScreenState extends State<ThesisProcessScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 18, horizontal: 20),
                               ),
                               onPressed: () {
                                 if (isLoggedIn) {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
-                                      pageBuilder: (context, animation, secondaryAnimation) =>
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
                                           ThesisStepDetailScreen(
-                                            step: step,
-                                            isLoggedIn: isLoggedIn,
-                                            userId: userId,
-                                          ),
-                                      transitionsBuilder:
-                                          (context, animation, secondaryAnimation, child) {
+                                        step: step,
+                                        isLoggedIn: isLoggedIn,
+                                        userId: userId,
+                                      ),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
                                         return FadeTransition(
                                           opacity: animation,
                                           child: child,
@@ -117,7 +120,8 @@ class _ThesisProcessScreenState extends State<ThesisProcessScreen> {
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Please log in to view step details.'),
+                                      content: Text(
+                                          'Please log in to view step details.'),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );

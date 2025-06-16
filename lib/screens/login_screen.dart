@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/authentication_service.dart'; // or authentication_service.dart
-import '../models/user.dart';
 import '../screens/thesis_process_screen.dart';
 
 class CasLoginScreen extends StatefulWidget {

@@ -8,16 +8,18 @@ class ThesisApproval {
   final int creditsApplied;
   final int totalCredits;
   final bool isDocumentationAvailable;
+  final String fileUrl;
 
-  ThesisApproval({
-    required this.index,
-    required this.studentName,
-    required this.date,
-    required this.thesisTitle,
-    required this.status,
-    required this.studentConsent,
-    required this.creditsApplied,
-    required this.totalCredits,
-    required this.isDocumentationAvailable,
-  });
+  ThesisApproval(
+      {required this.index,
+      required this.studentName,
+      required this.date,
+      required this.thesisTitle,
+      required this.status,
+      required this.studentConsent,
+      required this.creditsApplied,
+      required this.totalCredits,
+      required this.isDocumentationAvailable,
+      String? fileUrl})
+      : fileUrl = fileUrl ?? '$index.pdf';
 }
