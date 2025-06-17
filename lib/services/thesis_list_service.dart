@@ -29,7 +29,7 @@ class ThesisListService {
         approvalStatus: "Одобрена",
         description:
             "Проект за анализа на генеративни модели за создавање на слики, со посебен фокус на DALL·E и Midjourney.",
-        fileUrl: null,
+        fileUrl: "211097.pdf",
       ),
       Thesis(
         title:

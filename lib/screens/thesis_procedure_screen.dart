@@ -13,7 +13,7 @@ class ThesisProcedureScreen extends StatefulWidget {
 class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
   final Color primaryTextColor = const Color(0xFF686868);
 
-  final int _currentIndex = 2; // Notice: assuming this is screen index 2 (Procedura za diplomksa)
+  final int _currentIndex = 2;
   bool isLoggedIn = true;
   String? userId = "211097";
 
@@ -54,8 +54,10 @@ class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
             AppHeader(),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -94,11 +96,12 @@ class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
                                 border: Border.all(color: Colors.grey.shade300),
                               ),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Padding(
                                     padding: EdgeInsets.only(right: 12.0),
-                                    child: Icon(Icons.note, color: Color(0xFF59A9FF)),
+                                    child: Icon(Icons.paste,
+                                        color: Color(0xFF59A9FF)),
                                   ),
                                   Expanded(
                                     child: Text(
@@ -128,7 +131,8 @@ class _ThesisProcedureScreenState extends State<ThesisProcedureScreen> {
         currentIndex: _currentIndex,
         navBarColor: const Color(0xFF59A9FF),
         isLoggedIn: isLoggedIn,
-        onTap: (index) => NavigationHelper.navigateByIndex(context, index, isLoggedIn),
+        onTap: (index) =>
+            NavigationHelper.navigateByIndex(context, index, isLoggedIn),
       ),
     );
   }

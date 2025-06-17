@@ -27,8 +27,6 @@ class ThesisDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             AppHeader(),
-
-            // Back button below AppHeader
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -106,14 +104,7 @@ class ThesisDetailScreen extends StatelessWidget {
                                   thesis.approvalStatus!),
                             if (thesis.description != null &&
                                 thesis.description!.isNotEmpty)
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  _infoRow(
-                                      Icons.description, thesis.description!),
-                                ],
-                              ),
+                              _infoRow(Icons.description, thesis.description!)
                           ],
                         ),
                       ),
@@ -152,6 +143,43 @@ class ThesisDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
+                      if (thesis.fileUrl == null || thesis.fileUrl!.isEmpty)
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                onPressed: null,
+                                icon: const Icon(Icons.download,
+                                    color: Colors.black54),
+                                label: const Text(
+                                  "Преземи датотека",
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      primaryColor.withOpacity(0.3),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 14),
+                                  textStyle: const TextStyle(fontSize: 16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                "Не постои датотека за оваа дипломска.",
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
                         ),
                     ],
                   ),

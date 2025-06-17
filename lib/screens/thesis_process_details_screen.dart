@@ -3,7 +3,6 @@ import '../models/thesis_step.dart';
 import '../widgets/app_header.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../utils/navigation_helper.dart';
-import '../services/authentication_service.dart'; // if needed
 
 class ThesisStepDetailScreen extends StatelessWidget {
   final ThesisStep step;

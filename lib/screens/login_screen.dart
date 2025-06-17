@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/authentication_service.dart'; // or authentication_service.dart
+import '../services/authentication_service.dart';
 import '../screens/thesis_process_screen.dart';
 
 class CasLoginScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _CasLoginScreenState extends State<CasLoginScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const ThesisProcessScreen()),
-            (route) => false,
+        (route) => false,
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,7 +48,7 @@ class _CasLoginScreenState extends State<CasLoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/cas_logo.png', // Replace with your logo
+                'assets/images/cas_logo.png',
                 height: 200,
               ),
               const SizedBox(height: 16),
@@ -58,32 +58,45 @@ class _CasLoginScreenState extends State<CasLoginScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
               const SizedBox(height: 32),
-
               TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  floatingLabelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
               ),
               const SizedBox(height: 20),
-
               TextField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  floatingLabelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
               ),
               const SizedBox(height: 30),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -98,9 +111,9 @@ class _CasLoginScreenState extends State<CasLoginScreen> {
                   child: _isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
                       : const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
+                          'Login',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
                 ),
               ),
             ],

@@ -4,16 +4,16 @@ class ThesisApprovalService {
   List<ThesisApproval> getThesisApprovals() {
     return [
       ThesisApproval(
-        index: '211097',
-        studentName: 'Филип Самарџиски',
-        date: DateTime(2025, 09, 15),
-        thesisTitle: 'Предикција на дијабетична ретинопатија со CNN',
-        status: 'Валидирање од службата за студентски прашања',
-        studentConsent: true,
-        creditsApplied: 240,
-        totalCredits: 240,
-        isDocumentationAvailable: true,
-      ),
+          index: '211097',
+          studentName: 'Филип Самарџиски',
+          date: DateTime(2025, 09, 15),
+          thesisTitle: 'Предикција на дијабетична ретинопатија со CNN',
+          status: 'Валидирање од службата за студентски прашања',
+          studentConsent: true,
+          creditsApplied: 240,
+          totalCredits: 240,
+          isDocumentationAvailable: true,
+          fileUrl: "211097.pdf"),
       ThesisApproval(
         index: '211079',
         studentName: 'Тамара Стојанова',

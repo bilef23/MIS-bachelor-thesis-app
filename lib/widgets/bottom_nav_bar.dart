@@ -27,11 +27,11 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.edit),
-          label: 'Процедура за дипломска',
+          label: 'Процедура',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list_alt),
-          label: 'Листа на дипломски',
+          label: 'Листа',
         ),
       ];
     } else {
@@ -42,7 +42,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Листа на дипломски',
+          label: 'Листа',
         ),
       ];
     }

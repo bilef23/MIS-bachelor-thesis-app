@@ -45,7 +45,7 @@ class _AppHeaderState extends State<AppHeader> {
     );
 
     if (result == true) {
-      await _loadUser(); // Reload user after successful login
+      await _loadUser();
     }
   }
 
@@ -75,30 +75,36 @@ class _AppHeaderState extends State<AppHeader> {
               alignment: Alignment.centerRight,
               child: isLoggedIn
                   ? Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 12,
-                children: [
-                  const Icon(Icons.person, color: Colors.grey, size: 20),
-                  Text(
-                    username ?? '',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  TextButton.icon(
-                    onPressed: _handleLogout,
-                    icon: const Icon(Icons.logout, color: Colors.grey),
-                    label: const Text("Одјава"),
-                  ),
-                ],
-              )
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 12,
+                      children: [
+                        const Icon(Icons.person, color: Colors.grey, size: 20),
+                        Text(
+                          username ?? '',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        TextButton.icon(
+                          onPressed: _handleLogout,
+                          icon: const Icon(Icons.logout, color: Colors.grey),
+                          label: const Text("Одјава"),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
                   : TextButton.icon(
-                onPressed: _handleLogin,
-                icon: const Icon(Icons.login, color: Colors.grey),
-                label: const Text("Најава"),
-              ),
+                      onPressed: _handleLogin,
+                      icon: const Icon(Icons.login, color: Colors.grey),
+                      label: const Text("Најава"),
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.grey,
+                      ),
+                    ),
             ),
           ),
         ],

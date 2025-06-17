@@ -8,7 +8,7 @@ class ThesisApproval {
   final int creditsApplied;
   final int totalCredits;
   final bool isDocumentationAvailable;
-  final String fileUrl;
+  final String? fileUrl;
 
   ThesisApproval(
       {required this.index,
@@ -20,6 +20,5 @@ class ThesisApproval {
       required this.creditsApplied,
       required this.totalCredits,
       required this.isDocumentationAvailable,
-      String? fileUrl})
-      : fileUrl = fileUrl ?? '$index.pdf';
+      this.fileUrl});
 }

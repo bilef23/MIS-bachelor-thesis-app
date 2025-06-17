@@ -12,7 +12,6 @@ class ThesisDownloadService {
       final tempPath = '${directory.path}/$fileName';
 
       final file = File(tempPath);
-      print(tempPath);
 
       await file.writeAsBytes(data.buffer.asUint8List());
       await OpenFile.open(tempPath);

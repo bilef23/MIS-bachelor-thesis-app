@@ -53,7 +53,6 @@ class _ThesisApprovalScreenState extends State<ThesisApprovalScreen> {
         child: Column(
           children: [
             AppHeader(),
-            // This is the missing box
             Container(
               margin:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -108,40 +107,81 @@ class _ThesisApprovalScreenState extends State<ThesisApprovalScreen> {
                         approval!.isDocumentationAvailable
                             ? "Достапна"
                             : "Моментално не е достапна"),
-                    const SizedBox(height: 20),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        try {
-                          await ThesisDownloadService.downloadAndOpenPdf(
-                              approval!.fileUrl);
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Не може да се отвори датотеката.')),
-                          );
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.download,
-                        color: Colors.black,
-                      ),
-                      label: const Text(
-                        'Преземи датотека',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 16),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF59A9FF),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                    const SizedBox(
+                      height: 20,
                     ),
+                    if (approval!.fileUrl != null &&
+                        approval!.fileUrl!.isNotEmpty)
+                      SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () async {
+                              try {
+                                await ThesisDownloadService.downloadAndOpenPdf(
+                                    approval!.fileUrl!);
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Не може да се отвори датотеката.')),
+                                );
+                              }
+                            },
+                            icon:
+                                const Icon(Icons.download, color: Colors.black),
+                            label: const Text(
+                              'Преземи датотека',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 16),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF59A9FF),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          )),
+                    if (approval!.fileUrl == null || approval!.fileUrl!.isEmpty)
+                      Column(
+                        children: [
+                          SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                onPressed: null,
+                                icon: const Icon(Icons.download,
+                                    color: Colors.black54),
+                                label: const Text(
+                                  'Преземи датотека',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                      fontSize: 16),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color(0xFF59A9FF).withOpacity(0.3),
+                                  foregroundColor: Colors.white,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              )),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              'Не постои датотека за вашата дипломска.',
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
